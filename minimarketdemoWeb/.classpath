@@ -20,5 +20,6 @@
 			<attribute name="owner.project.facets" value="jst.web;jst.jsf"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/minimarketdemoFactEJB"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

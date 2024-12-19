@@ -5,6 +5,7 @@
 	<projects>
 		<project>minimarketdemoEJB</project>
 		<project>minimarketdemoWeb</project>
+		<project>minimarketdemoFactEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
