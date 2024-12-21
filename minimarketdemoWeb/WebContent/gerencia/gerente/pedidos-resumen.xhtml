@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event listener="#{beanGerencia.inicializar()}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+    <title>Resumen de Pedidos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+</h:head>
+
+<h:body>
+    <!-- Growl Notifications -->
+    <p:growl id="growl" showDetail="true" sticky="false" life="3000">
+        <p:autoUpdate />
+    </p:growl>
+
+    <!-- Menu -->
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+            <f:facet name="options">
+                <p:menuButton value="#{beanSegLogin.loginDTO.correo}" icon="pi pi-user">
+                    <p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+                    <p:menuitem value="Cerrar sesión" icon="pi pi-sign-out" />
+                </p:menuButton>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+
+    <!-- DataTable for Pedidos -->
+    <h:form id="formPedidosResumen">
+        <p:panel header="Resumen de Pedidos (Despachados y Pendientes)">
+            <p:dataTable value="#{beanGerencia.listaPedidosResumen}" var="pedido" paginator="true" rows="10" responsiveLayout="scroll" style="width: 100%;">
+                
+                <!-- Año -->
+                <p:column headerText="Año">
+                    <h:outputText value="#{pedido.anio}" />
+                </p:column>
+
+                <!-- Mes -->
+                <p:column headerText="Mes">
+                    <h:outputText value="#{pedido.mes}">
+                        <f:convertNumber integerOnly="true" />
+                    </h:outputText>
+                </p:column>
+
+                <!-- Estado del Pedido -->
+                <p:column headerText="Estado del Pedido">
+                    <h:outputText value="#{pedido.idEstadoPedido}" />
+                </p:column>
+
+                <!-- Cantidad de Pedidos -->
+                <p:column headerText="Cantidad de Pedidos">
+                    <h:outputText value="#{pedido.cantidadPedidos}" />
+                </p:column>
+
+                <!-- Total de Pedidos -->
+                <p:column headerText="Total de Pedidos">
+                    <h:outputText value="#{pedido.totalPedidos}">
+                        <f:convertNumber currencySymbol="$" type="currency" />
+                    </h:outputText>
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

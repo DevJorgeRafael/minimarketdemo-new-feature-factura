@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event listener="#{beanGerencia.inicializar()}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+    <title>Facturación por Año</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+</h:head>
+
+<h:body>
+    <!-- Growl Notifications -->
+    <p:growl id="growl" showDetail="true" sticky="false" life="3000">
+        <p:autoUpdate />
+    </p:growl>
+
+    <!-- Menu -->
+    <!-- Menu -->
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+            <f:facet name="options">
+                <p:menuButton value="#{beanSegLogin.loginDTO.correo}" icon="pi pi-user">
+                    <p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+                    <p:menuitem value="Cerrar sesión" icon="pi pi-sign-out" />
+                </p:menuButton>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+
+
+    <!-- Panel for DataTable -->
+    <h:form id="formFacturasAnio">
+        <p:panel header="Facturación por Año">
+            <p:dataTable value="#{beanGerencia.listaFacturasPorAnio}" var="factura" 
+                         paginator="true" rows="10" responsiveLayout="scroll" 
+                         style="width: 100%">
+
+                <!-- ID Factura -->
+                <p:column headerText="ID Factura" sortBy="#{factura.idFactura}">
+                    <h:outputText value="#{factura.idFactura}" />
+                </p:column>
+
+                <!-- Año -->
+                <p:column headerText="Año" sortBy="#{factura.anio}">
+                    <h:outputText value="#{factura.anio}" />
+                </p:column>
+
+                <!-- Cantidad de Facturas -->
+                <p:column headerText="Cantidad de Facturas" sortBy="#{factura.cantidadFacturas}">
+                    <h:outputText value="#{factura.cantidadFacturas}" />
+                </p:column>
+
+                <!-- Total Facturado -->
+                <p:column headerText="Total Facturado" sortBy="#{factura.totalFacturado}">
+                    <h:outputText value="#{factura.totalFacturado}">
+                        <f:convertNumber currencySymbol="$" type="currency" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+
+    <!-- Confirm Dialog -->
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" />
+    </p:confirmDialog>
+</h:body>
+</html>

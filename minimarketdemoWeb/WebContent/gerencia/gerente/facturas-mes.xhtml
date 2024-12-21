@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event listener="#{beanGerencia.inicializar()}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+    <title>Facturación por Mes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+</h:head>
+
+<h:body>
+    <!-- Growl Notifications -->
+    <p:growl id="growl" showDetail="true" sticky="false" life="3000">
+        <p:autoUpdate />
+    </p:growl>
+
+    <!-- Menu -->
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+            <f:facet name="options">
+                <p:menuButton value="#{beanSegLogin.loginDTO.correo}" icon="pi pi-user">
+                    <p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+                    <p:menuitem value="Cerrar sesión" icon="pi pi-sign-out" />
+                </p:menuButton>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+
+    <!-- Chart for All Years -->
+    <h:form id="formChartGeneral">
+        <p:panel header="Gráfico de Facturación (Todos los Años)">
+            <p:chart type="bar" model="#{beanGerencia.barChartModel}" style="height: 400px; width: 100%;" />
+        </p:panel>
+    </h:form>
+
+    <!-- Chart with Year Selection -->
+    <h:form id="formChartPorAnio">
+        <p:panel header="Gráfico de Facturación por Año">
+            <div style="display: flex; align-items: center; gap: 10px;">
+			    <p:selectOneMenu id="selectYear" value="#{beanGerencia.selectedYear}" style="width: 200px;">
+			        <f:selectItems value="#{beanGerencia.availableYears}" var="year" itemValue="#{year}" itemLabel="#{year}" />
+			    </p:selectOneMenu>
+			    <p:commandButton value="Actualizar Gráfico" update="chartPorAnio" action="#{beanGerencia.updateChartByYear}" />
+			</div>
+                      
+            <p:chart id="chartPorAnio" type="bar" model="#{beanGerencia.barChartModelByYear}" style="height: 400px; width: 100%;" />
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
