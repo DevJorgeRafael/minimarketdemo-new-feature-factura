@@ -35,6 +35,8 @@ public class BeanGerencia implements Serializable {
     private List<VwFacturasPorAnio> listaFacturasPorAnio;
     private List<VwFacturasPorMe> listaFacturasPorMes;
     private List<VwPedidosResumen> listaPedidosResumen;
+    
+    private boolean listaPedidosCargada = false;
 
     @PostConstruct
     public void inicializar() {
@@ -42,9 +44,6 @@ public class BeanGerencia implements Serializable {
             listaFacturasPorAnio = mg.findAllFacturasPorAnio();
             listaFacturasPorMes = mg.findAllFacturasPorMes();
             listaPedidosResumen = mg.findAllPedidosResumen();
-            listaPedidosResumen.forEach(pedido -> {
-                pedido.setIdEstadoPedido(traducirEstadoPedido(pedido.getIdEstadoPedido()));
-            });
             initAvailableYears();
             createBarChartModel();
             createBarChartModelByYear();
@@ -63,10 +62,13 @@ public class BeanGerencia implements Serializable {
     }
 
     public List<VwPedidosResumen> getListaPedidosResumen() {
-        if (listaPedidosResumen != null) {
+        if (!listaPedidosCargada && listaPedidosResumen != null) {
             listaPedidosResumen.forEach(pedido -> {
-                pedido.setIdEstadoPedido(traducirEstadoPedido(pedido.getIdEstadoPedido()));
+            	System.out.println("---------------------------- " + pedido.getIdEstadoPedido());
+            	pedido.setIdEstadoPedido(traducirEstadoPedido(pedido.getIdEstadoPedido()));
+                
             });
+            listaPedidosCargada = true;
         }
         return listaPedidosResumen;
     }
