@@ -1,7 +1,7 @@
 # minimarketdemo
 Demo minimarket para MIPYMES
 Core de sistema ERP con arquitectura monolítica multicapa JavaEE
-Autor: mrea@utn.edu.ec
+Autores: mrea@utn.edu.ec, jrroseroc@utn.edu.ec y aovillarrealb@utn.edu.ec
 
 Plataforma:
 - JavaEE
